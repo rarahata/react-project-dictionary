@@ -36,6 +36,7 @@ export default function SearchEngine() {
           </button>
         </div>
       </form>
+      <p>{keyword}</p>
     </div>
   );
 }
