@@ -1,25 +1,29 @@
 import React, { useState } from "react";
+import DictionaryResult from "./DictionaryResult";
 import axios from "axios";
 
 export default function SearchEngine() {
   let [keyword, setKeyword] = useState("");
+  let [ready, setReady] = useState(false);
+  let [dictinaryResponse, setDictionaryRespopnse] = useState("");
 
   function handleResponse(response) {
-    alert(response.data[0].word);
+    setDictionaryRespopnse(response);
+    setReady(true);
   }
 
   function search(event) {
     event.preventDefault();
-
-    let apiUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/sunset";
+    let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${keyword}`;
     axios.get(apiUrl).then(handleResponse);
+    console.log(apiUrl);
   }
 
   function updateKeyword(event) {
     setKeyword(event.target.value);
   }
 
-  return (
+  let searchEngine = (
     <div className="SearchEngine">
       <form onChange={updateKeyword}>
         <div className="input-group rounded">
@@ -36,7 +40,17 @@ export default function SearchEngine() {
           </button>
         </div>
       </form>
-      <p>{keyword}</p>
     </div>
   );
+
+  if (ready) {
+    return (
+      <div className="DictionaryResult">
+        {searchEngine}
+        <DictionaryResult result={dictinaryResponse} />
+      </div>
+    );
+  } else {
+    return searchEngine;
+  }
 }

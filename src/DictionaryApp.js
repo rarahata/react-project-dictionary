@@ -6,10 +6,8 @@ import logo from "./logo.png";
 export default function DictionaryApp() {
   return (
     <div className="DictionaryApp">
-      <div className="container">
-        <img src={logo} alt="logo" className="App-logo img-fluid" />
-        <SearchEngine />
-      </div>
+      <h1>Dictionary</h1>
+      <SearchEngine />
     </div>
   );
 }
